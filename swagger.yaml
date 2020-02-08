@@ -1,0 +1,53 @@
+swagger: "2.0"
+info:
+  description: "Axon service"
+  version: "0.0.1"
+  title: "axon service"
+schemes:
+  - "http"
+tags:
+  - name: "command"
+  - name: "query"
+
+paths:
+  /monkeys:
+    post:
+      tags: 
+        - "command"
+      summary: "Register a new monkey"
+      description: "Post to this endpoint to add a new monkey"
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: registerMonkey
+          description: The monkey to create.
+          schema:
+            $ref: '#/definitions/Monkey'
+      responses:
+        201:
+          description: Created
+    get:
+      tags: 
+        - "query"
+      summary: "List all Monkeys"
+      description: "Get from this endpoint to list all the lovely monkeys"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A list of /monkeys
+          schema:
+            type: array
+            items:  
+              $ref: '#/definitions/Monkey'
+
+definitions:
+  Monkey:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        example: "baboon"
